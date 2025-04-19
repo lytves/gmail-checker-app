@@ -40,6 +40,11 @@ npm start
 
 ### 4. Empaquetar la app (macOS)
 
+Instalar electron-packager:
+```bash
+npm install --save-dev electron-packager
+```
+
 Puedes empaquetar la app para diferentes arquitecturas:
 
 ✅ Para Mac con chip Apple Silicon (M1, M2, M3, M4), esto generará una app compatible solo con Macs Apple Silicon:
