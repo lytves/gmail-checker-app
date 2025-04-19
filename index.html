@@ -1,0 +1,56 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <style>
+        body {
+            margin: 0;
+        }
+        
+        #tabs {
+            display: flex;
+            background: #ccc;
+            height: 40px;
+        }
+        
+        button {
+            flex: 1;
+            border-right: 1 px solid #ccc;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="tabs">
+        <button onclick="switchTab(0)">mail-1</button>
+        <button onclick="switchTab(1)">mail-2</button>
+        <button onclick="switchTab(2)">mail-3</button>
+        <button onclick="switchTab(2)">mail-4</button>
+    </div>
+    <script>
+        const {
+            ipcRenderer
+        } = require('electron');
+
+        function switchTab(index) {
+            ipcRenderer.send('switch-tab', index);
+        }
+
+        ipcRenderer.on('tab-switched', (_, index) => {
+            const buttons = document.querySelectorAll('#tabs button');
+            buttons.forEach((btn, i) => {
+                if (i === index) {
+                    btn.style.backgroundColor = '#999'; // active tab color
+                } else {
+                    btn.style.backgroundColor = '#ccc'; // inactive
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
