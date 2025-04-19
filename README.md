@@ -64,3 +64,60 @@ npx electron-packager . gmail-checker-app \
   --arch=universal \
   --icon=assets/gmail.icns
 ```
+
+## 🛠️ Personalización
+
+Puedes modificar fácilmente el comportamiento de la app editando el archivo main.js.
+
+✅ Número de pestañas
+
+Busca este fragmento y añade/quita cuentas según necesites:
+```js
+const profiles = ['gmail_profile_1', 'gmail_profile_2', 'yandex_profile_3', 'yahoo_profile_4'];
+const urls = [
+  'https://mail.google.com/mail/u/0/',
+  'https://mail.google.com/mail/u/1/',
+  'https://mail.yahoo.com/',
+  'https://mail.yandex.com/'
+];
+```
+
+> Asegúrate de que los arrays profiles y urls tengan el mismo tamaño.
+
+✅ Icono de la aplicación
+
+El icono se define en main.js:
+```js
+icon: path.join(__dirname, 'assets/gmail.icns')
+```
+> Simplemente reemplaza el archivo assets/gmail.icns con tu icono personalizado.
+
+✅ Intervalo de comprobación de correos
+
+El chequeo de nuevos correos ocurre cada 15 segundos por defecto. Puedes modificar este valor en main.js:
+```js
+setInterval(() => {
+    // ... lógica
+}, 15000); // <-- modifica este valor (en milisegundos)
+```
+
+✅ Rebote del dock (macOS)
+
+Para cambiar cuántas veces rebota el icono del dock cuando hay correos no leídos, modifica este bloque:
+```js
+let bounceCount = 0;
+const bounceLimit = 2; // Número de rebotes
+const bounceInterval = setInterval(() => {
+  if (bounceCount < bounceLimit) {
+    app.dock.bounce('informational');
+    bounceCount++;
+  } else {
+    clearInterval(bounceInterval);
+  }
+}, 500);
+```
+
+📄 Licencia
+
+Este proyecto está licenciado bajo la MIT License.
+Eres libre de usar, modificar, distribuir o integrar este código en otros proyectos, con o sin fines comerciales, siempre que mantengas el aviso de copyright.
